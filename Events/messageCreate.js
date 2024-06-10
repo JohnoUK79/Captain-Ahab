@@ -1,5 +1,6 @@
 const { ChannelType } = require('discord.js');
 const sql = require("../config/Database");
+const { levelUp } = require('../functions/levelUp');
 const { dmReceived, translate } = require('../functions/messageFunctions');
 time = require('../config/timestamp')
 setDate = time.UTCdefault()
@@ -26,4 +27,8 @@ module.exports = {
 		//Set Guild Branding
 		guildIcon = message.member.guild.iconURL();
 		guildName = message.member.guild.name
+		//Level Up
+		try {
+			levelUp(message)
+			} catch (err) {console.log(err)}
 	}}
