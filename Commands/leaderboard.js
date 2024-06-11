@@ -101,6 +101,7 @@ module.exports = {
 			leaderBoard.setColor('#72ddf7') //Light Blue
 		} 
 
-		return interaction.reply({ embeds: [leaderBoard], components: [LeaderboardButtons]})
+		//return interaction.reply({ embeds: [leaderBoard], components: [LeaderboardButtons]})
+		return interaction.reply({ embeds: [leaderBoard] })
 	},
 };
