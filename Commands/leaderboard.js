@@ -46,7 +46,7 @@ module.exports = {
 		const leaderBoard = new EmbedBuilder()
 		.setColor('#0099ff')
 		.setTitle(`${guildName} - Levels Leaderboard`)
-		.setURL('http://www.phfamily.co.uk/leaderboard.php')
+		.setURL('http://www.battle-bot.com/leaderboard.php')
 		.setThumbnail(interaction.member.displayAvatarURL())
 		.setAuthor({ name: interaction.member.displayName, iconURL: interaction.member.displayAvatarURL({ dynamic: true })})
 		.setDescription(`Hey **${interaction.member.displayName}**! Here is the board you asked for.`)
