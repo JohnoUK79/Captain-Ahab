@@ -1,7 +1,7 @@
 const ms = require('ms-prettify').default
 const { campSelection, campaignSelection, attackSelection, skillColours } = require('../functions/warpathFunctions');
 const { sleep } = require('../functions/discordFunctions')
-const { Colours } = require('../data/colours')
+const { Colours } = require('../config/colours')
 const sql = require("../config/Database");
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { attackerSkills } = require('./attackerSkills');

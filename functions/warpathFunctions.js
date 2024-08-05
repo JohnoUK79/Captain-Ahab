@@ -1,6 +1,6 @@
 const sql = require("../config/Database");
 const { GUILD_ID } = require('../config.json')
-const { Colours } = require('../data/colours')
+const { Colours } = require('../config/colours')
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, AttachmentBuilder } = require('discord.js');
 module.exports = {
     baseUpgrade: async function (interaction) {

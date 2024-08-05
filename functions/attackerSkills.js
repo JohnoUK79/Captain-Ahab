@@ -1,8 +1,8 @@
 const sql = require("../config/Database");
 const { EmbedBuilder } = require('discord.js');
-const { Colours } = require('../data/colours')
+const { Colours } = require('../config/colours')
 const { sleep } = require('../functions/discordFunctions')
-const { chance0, chance5, chance10, chance15, chance20, chance25, chance30, chance35, chance40, chance45, chance50, chance55, chance60, chance65, chance70, chance75, chance80, chance85, chance90, chance95, chance100 } = require('../data/chance');
+const { chance0, chance5, chance10, chance15, chance20, chance25, chance30, chance35, chance40, chance45, chance50, chance55, chance60, chance65, chance70, chance75, chance80, chance85, chance90, chance95, chance100 } = require('../config/chance');
 module.exports = {
     attackerSkills: async function (interaction) {
         const Boom = 'http://battle-bot.com/img/Boom.jpg'

@@ -3,7 +3,7 @@ const sql = require("../config/Database");
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { campSelection, skillColours, attackSelection } = require("./warpathFunctions");
 const { sleep } = require('../functions/discordFunctions')
-const { Colours } = require('../data/colours');
+const { Colours } = require('../config/colours');
 const { attackerSkills } = require('./attackerSkills');
 const { defenderSkills } = require('./defenderSkills');
 
