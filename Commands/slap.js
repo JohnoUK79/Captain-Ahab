@@ -11,6 +11,7 @@ module.exports = {
 			.setDescription('The member to slap!')),
 	
 	async execute(interaction) {
+	console.log(gifs)
 	var randomGif = gifs[Math.floor(Math.random() * gifs.length)];
     guildIcon = interaction.member.guild.iconURL();
 	guildName = interaction.member.guild.name;
