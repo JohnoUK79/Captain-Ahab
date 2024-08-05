@@ -6,7 +6,7 @@ setDate = timestamp.UTCdefault()
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.ManageGuild)
+        //.setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.ManageGuild)
         .setName("gift")
         .setDescription("Gift War-Coins!")
 		.addUserOption(option =>
