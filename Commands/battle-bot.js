@@ -1,8 +1,8 @@
-	const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, AttachmentBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, AttachmentBuilder } = require('discord.js');
 const { Colours } = require('../config/colours')
 const sql = require("../config/Database");
 const { profileMenu, battleBotHelp } = require('../functions/warpathFunctions');
-
+const { sleep } = require('../functions/discordFunctions')
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('battle-bot')
@@ -63,19 +63,23 @@ module.exports = {
 		})
 		const guildIcon = interaction.member.guild.iconURL();
 		const guildName = interaction.member.guild.name
-		let Economy = await sql.Execute(`SELECT * FROM levels WHERE discord_id = ${interaction.member.id}`)
-		if (Economy.length === 0) {
-			console.log(`New Player Registered`)
+		let Economy = await sql.Execute(`SELECT * FROM levels WHERE discord_id = ${interaction.member.id}`);
+		if (Economy[0].newplayer === 0) {
+			const bank = Economy[0].war_coins;
+			console.log(`New Player Registered`);
 			const registerEmbed = new EmbedBuilder()
-				registerEmbed
-				.setDescription(`Welcome **${interaction.member.displayName}** you are now registered for **Battle-Bot**\nYou have $3,000,000 War-Coins to get you started.\nPlease use **/Battle-Bot Profile** to get started.\nMention ${interaction.member.client.user} for Help!`)
-				const warcoins = 3000000
-				const newRegistration = await sql.Execute(`INSERT INTO levels (discord_id, war_coins) VALUES ('${interaction.member.id}', '${warcoins}');`)
-
-			interaction.followUp({
+				.setDescription(`Welcome **${interaction.member.displayName}** you are now registered for **Battle-Bot**\nYou have $3,000,000 War-Coins to get you started.\nPlease use **/Battle-Bot Help** for tips on Gameplay.\nMention ${interaction.member.client.user} for more detailed Help!`);
+			const warcoins = 3000000;
+			const chest = bank + warcoins;
+			const newRegistration = await sql.Execute(`INSERT INTO levels (discord_id, war_coins) VALUES ('${interaction.member.id}', '${warcoins}') ON DUPLICATE KEY UPDATE war_coins = ${chest}, newplayer = "1";`);
+		
+			interaction.editReply({
 				embeds: [registerEmbed]
-			})
-		} 
+			});
+			await sleep(6000)      
+
+		}
+		
 		Economy = await sql.Execute(`SELECT * FROM levels WHERE discord_id = ${interaction.member.id}`)
 		const unitDetails = await sql.Execute(`SELECT * FROM units WHERE Camp = '${Economy[0].unit_camp}' AND Unit_type = '${Economy[0].unit_type}' AND Unit_Level = '${Economy[0].unit_level}'`)
         const image = Economy[0].unit_image || 'GeneralDeath.png'
