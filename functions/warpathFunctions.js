@@ -1902,7 +1902,7 @@ module.exports = {
                 label: name,
                 description: `${level} - ${camp} - ${type} - ${skill} - ${skill_level}`,
                 value: name.toString(),
-                emoji: image.toString()
+                //emoji: image.toString()
             })
         }
 
