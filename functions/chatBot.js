@@ -1,4 +1,4 @@
-const { Configuration, OpenAIApi } = require("openai");
+const { Configuration, OpenAI } = require("openai");
 const { OPENAI_API_KEY } = require('../config.json')
 const sql = require('../config/Database')
 module.exports = {
@@ -6,8 +6,10 @@ module.exports = {
       const { client } = require('../bot')
 			const target = message.content.replace(`<@${client.user.id}>`, '')
 			const Levels = await sql.Execute(`SELECT * FROM levels WHERE discord_id = ${message.member.id}`)
+			console.log(Levels)
 			const { war_coins, war_chest, officer_name, officer_level, skill_level, unit_camp, unit_type, unit_level, unit_image, discord_avatar } = Levels[0];
 			const Units = await sql.Execute(`SELECT * FROM units WHERE Camp = '${unit_camp}' AND Unit_Type = '${unit_type}' AND Unit_Level = '${unit_level}'`)
+			console.log(Units)
 			const { Unit_Name, Firepower, HP, Speed, Attack_Type, Image } = Units[0];
 			const Officers = await sql.Execute(`SELECT * FROM officers WHERE Officer_Name = '${officer_name}'`)
 			const { Skill, Skill1, Skill2, Skill3, Skill4, Skill5 } = Officers[0];
@@ -19,12 +21,13 @@ module.exports = {
 			  ]
 
 			console.log(`Mention:${target}`)
-			const configuration = new Configuration({
-				apiKey: OPENAI_API_KEY,
-			  });
-			const openai = new OpenAIApi(configuration);
+			const openai = new OpenAI({
+				apiKey: OPENAI_API_KEY
+			});
+
+
 			async function runCompletion () {
-				const result = await openai.createChatCompletion({
+				const result = await openai.chat.completions.create({
 					model: "gpt-3.5-turbo",
 					max_tokens: 500,
 					temperature: 0.2,
@@ -127,10 +130,10 @@ module.exports = {
 					],
 				  });
 
-				  
+			console.log(result.choices[0].message.content)
+
 			// Add the user's processed request to the conversation
-			let reply = result.data.choices[0].message.content
-			console.log(result.data)
+			let reply = result.choices[0].message.content
 			  reply = reply
 			  .replace('{{war_coins}}', '$' + war_coins.toLocaleString())
 			  .replace('{{war_chest}}', '$' + war_chest.toLocaleString())
