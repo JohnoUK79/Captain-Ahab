@@ -37,8 +37,8 @@ module.exports = {
 					return interaction.editReply({ embeds: [embed] })
 				}
 				const DefenderDB = await sql.Execute(`SELECT * FROM levels WHERE discord_id = ${defender.id}`)
-
-                if (DefenderDB.length === 0) {
+                console.log(DefenderDB)
+		if (DefenderDB.length < 1 || DefenderDB.newplayer === 0) {
                     commandCooldowns.set(`${interaction.user.id}_${interaction.commandName}`, 0)
 
                     embed
@@ -47,6 +47,12 @@ module.exports = {
                         return interaction.editReply({ embeds: [embed] })
                     }
                 const DefenderUnit = await sql.Execute(`SELECT * FROM units WHERE Camp = '${DefenderDB[0].unit_camp}' AND Unit_Type = '${DefenderDB[0].unit_type}' AND Unit_Level = '${DefenderDB[0].unit_level}'`)
+		if (!DefenderUnit || DefenderUnit.length === 0) {
+    			commandCooldowns.set(`${interaction.user.id}_${interaction.commandName}`, 0);
+
+			    embed.setDescription(`${interaction.member}, ${defender} does not have a valid unit assigned! Please select a worthy adversary.`);
+    				return interaction.editReply({ embeds: [embed] });
+		}
 
                 const AttackerDB = await sql.Execute(`SELECT * FROM levels WHERE discord_id = ${interaction.member.id}`);
                 const AttackerUnit = await sql.Execute(`SELECT * FROM units WHERE Camp = '${AttackerDB[0].unit_camp}' AND Unit_Type = '${AttackerDB[0].unit_type}' AND Unit_Level = '${AttackerDB[0].unit_level}'`)

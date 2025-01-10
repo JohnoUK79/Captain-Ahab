@@ -43,7 +43,7 @@ module.exports = {
 					  },
 					  {
 						"role": "assistant",
-						"content": "In order to **Play** you need to first **/register** your Profile on the Server. Then upgrade your **War-Chest** & **War-Base** in order to be able to access your **First Officer**.\nOnce your **First Officer** reaches **Level 3** you can access your **First Unit**.\nLevel up you **Unit** & **Officer** to be able to take on the other players in your server or the **Campaigns** once you are strong enough.\nUse **/Battle-Bot Profile** to access the **Upgrade**, **Unit** & **Officer** functions as well as view your profile and command your **Empire**.",
+						"content": "In order to **Play** you need to first need to use **/battle-bot-profile** and be awarded **3,000,000** War Coins to get you started. Then upgrade your **War-Chest** & **War-Base** in order to be able to access your **First Officer**.\nOnce your **First Officer** reaches **Level 3** you can access your **First Unit**.\nLevel up you **Unit** & **Officer** to be able to take on the other players in your server or the **Campaigns** once you are strong enough.\nUse **/Battle-Bot Profile** to access the **Upgrade**, **Unit** & **Officer** functions as well as view your profile and command your **Empire**.",
 					  },
 					  {
 						"role": "user",
@@ -51,7 +51,7 @@ module.exports = {
 					  },
 					  {
 						"role": "assistant",
-						"content": "**Battle Bot™** is a **Fun** and **Engaging** experience to bring to your **Discord Servers**.\nMembers can Build Up their Empire and **Battle** other Members or the Bot using any combination from the Selection of **37 Officers** with **5 Unique Skills** Each.\n**344 Unique Units** across **3** different **Camp Loyalties**.",
+						"content": "**Battle Bot™** is a **Fun** and **Engaging** experience to bring to your **Discord Servers**.\nBased on the Mobile War Game **Warpath**\nMembers can Build Up their Empire and **Battle** other Members or the Bot using any combination from the Selection of **37 Officers** with **5 Unique Skills** Each.\n**344 Unique Units** across **3** different **Camp Loyalties**.",
 					  },
 					  {
 						"role": "user",
