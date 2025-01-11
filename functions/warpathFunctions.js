@@ -142,7 +142,7 @@ module.exports = {
         const baseLevel = Level[0].base_level
         const bankLevel = Level[0].chest_level
         const cost = (bankLevel + 1) * 10000
-        if (bankLevel > baseLevel) {
+        if (bankLevel > baseLevel + 5) {
             console.log(`Base Upgrade Needed`),
                 upgradeBankEmbed
                     .setColor(CampColour)
@@ -260,7 +260,7 @@ module.exports = {
         const baseLevel = Level[0].base_level
         const bankLevel = Level[0].chest_level
         const cost = (baseLevel + 1) * 25000
-        if (baseLevel > bankLevel) {
+        if (baseLevel > bankLevel + 5) {
             console.log(`Chest Upgrade Needed`),
                 upgradeBaseEmbed
                     .setColor(CampColour)
