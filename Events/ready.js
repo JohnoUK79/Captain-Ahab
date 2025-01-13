@@ -96,85 +96,105 @@ module.exports = {
                
         })
 
-        const battleBoardRewards = nodeCron.schedule("0,5,10,15,20,25,30,35,40,45,50,55 * * * 1", async () => {
+        const battleBoardRewards = nodeCron.schedule("0 0 * * MONDAY", async () => {
             try {
                 console.log("Battle Board Rewards");
         
-                // Fetch leaderboard data
-                const Board = await sql.Execute(`SELECT * FROM levels WHERE battle_wins > 0 ORDER BY guild_id, battle_wins DESC, battle_losses ASC`);
+                // Fetch board data
+                const Board = await sql.Execute(`SELECT * FROM levels WHERE battle_wins > 0 ORDER BY battle_wins DESC, battle_losses ASC`);
+                
+                // Check if the board is empty
+                if (!Board || Board.length === 0) {
+                    console.log("No matches fought this week. Posting update to level-up channels.");
         
-                // Group players by guild_id
-                const groupedByGuild = Board.reduce((acc, player) => {
-                    if (!acc[player.guild_id]) acc[player.guild_id] = [];
-                    acc[player.guild_id].push(player);
-                    return acc;
-                }, {});
-        
-                // Process each guild separately
-                for (const guild_id in groupedByGuild) {
-                    const guildPlayers = groupedByGuild[guild_id];
-        
-                    // Notify winners in the current guild
-                    const winnersEmbed = new EmbedBuilder()
-                        .setColor('#00FF80')
-                        .setTitle(`Battle Rewards`)
-                        .setDescription(`This Week's **Battle Reward Winners** Are:`)
-                        .setFooter({ text: `Battle Rewards for Guild ID: ${guild_id}`, iconURL: 'http://battle-bot.com/img/gifs/Warpath.jpg' })
+                    // Notify level-up channels about no matches
+                    const noMatchesEmbed = new EmbedBuilder()
+                        .setColor('#FF0000')
+                        .setTitle("Battle Rewards")
+                        .setDescription("No battles were fought this week. The leaderboard remains empty. Who will lead the charge next week?")
+                        .setFooter({ text: "Battle Bot", iconURL: 'http://battle-bot.com/images/GeneralDeath.png' })
                         .setTimestamp();
         
-                    for (let i = 0; i < 3 && guildPlayers[i]; i++) {
+                    const levelUpChannels = await sql.Execute(`SELECT * FROM settings WHERE 1`);
+                    for (let channel of levelUpChannels) {
                         try {
-                            const rewards = 50000 / (i + 1) * guildPlayers[i].officer_level;
-                            const winnings = guildPlayers[i].war_chest + rewards;
-        
-                            const sendDM = await client.users.fetch(`${guildPlayers[i].discord_id}`);
-                            const weeklyRewardsEmbed = new EmbedBuilder()
-                                .setColor('#00FF80')
-                                .setTitle(`You have placed ${i + 1} in this Week's Battle Rewards`)
-                                .setDescription(`Congratulations <@${guildPlayers[i].discord_id}>, your **$${rewards.toLocaleString()} Rewards** have been added to your **War-Chest**!`)
-                                .setFooter({ text: `Battle Rewards - Wins ${guildPlayers[i].battle_wins} Losses ${guildPlayers[i].battle_losses}`, iconURL: 'http://battle-bot.com/img/gifs/Warpath.jpg' })
-                                .setTimestamp();
-        
-                            // Update the player's war chest
-                            await sql.Execute(`UPDATE levels SET war_chest = '${winnings}' WHERE discord_id = ${guildPlayers[i].discord_id}`);
-                            await sendDM.send({ embeds: [weeklyRewardsEmbed] });
-        
-                            // Add the winner to the winners embed
-                            winnersEmbed.addFields(
-                                { name: `Rank ${i + 1}:`, value: `<@${guildPlayers[i].discord_id}> **Wins:** ${guildPlayers[i].battle_wins}`, inline: true }
-                            );
+                            const sendChannel = client.channels.cache.get(channel.level_up_channel_id) || await client.channels.fetch(channel.level_up_channel_id);
+                            await sendChannel.send({ embeds: [noMatchesEmbed] });
                         } catch (e) {
-                            console.error(`Error processing player (Guild: ${guild_id}, Rank ${i + 1}):`, e);
+                            console.error(`Error sending 'no matches' message to channel (ID: ${channel.level_up_channel_id}):`, e);
                         }
                     }
+                    return; // Exit early since no matches were fought
+                }
         
-                    // Add closing message to the winners embed
-                    winnersEmbed.addFields(
-                        { name: `All Rewards have been sent to the Winners via DM`, value: `The **Leaderboard** has been **Reset**, who will **Lead** this week?`, inline: false }
-                    );
+                // Process top players
+                for (let i = 0; i < 2 && Board[i]; i++) {
+                    try {
+                        const rewards = 50000 / (i + 1) * Board[i].officer_level;
+                        const winnings = Board[i].war_chest + rewards;
         
-                    // Fetch level-up channel for the guild
-                    const levelUpChannel = await sql.Execute(`SELECT level_up_channel_id FROM settings WHERE guild_id = '${guild_id}'`);
-                    if (levelUpChannel.length > 0) {
-                        const channel_id = levelUpChannel[0].level_up_channel_id;
-                        try {
-                            const sendChannel = client.channels.cache.get(channel_id) || await client.channels.fetch(channel_id);
-                            await sendChannel.send({ content: '**Congratulations**', embeds: [winnersEmbed] });
-                        } catch (e) {
-                            console.error(`Error sending winners' message to channel (Guild: ${guild_id}, Channel ID: ${channel_id}):`, e);
-                        }
-                    } else {
-                        console.log(`No level-up channel found for Guild ID: ${guild_id}`);
+                        const sendDM = await client.users.fetch(`${Board[i].discord_id}`);
+                        const weeklyRewardsEmbed = new EmbedBuilder()
+                            .setColor('#00FF80')
+                            .setTitle(`You have placed ${i + 1} in this Week's Battle Rewards`)
+                            .setDescription(`Congratulations <@${Board[i].discord_id}>, your **$${rewards.toLocaleString()} Rewards** have been added to your **War-Chest**!`)
+                            .setFooter({ text: `Battle Rewards - Wins ${Board[i].battle_wins} Losses ${Board[i].battle_losses}`, iconURL: 'http://battle-bot.com/images/GeneralDeath.png' })
+                            .setTimestamp();
+        
+                        await sql.Execute(`UPDATE levels SET war_chest = '${winnings}' WHERE discord_id = ${Board[i].discord_id}`);
+                        await sendDM.send({ embeds: [weeklyRewardsEmbed] });
+                    } catch (e) {
+                        console.error(`Error processing player (Rank ${i + 1}):`, e);
                     }
                 }
         
                 // Clear battle board
                 await sql.Execute(`UPDATE levels SET battle_wins = '0', battle_losses = '0' WHERE 1`);
                 console.log("Battle board cleared successfully.");
+        
+                // Notify channels with winners
+                const winnersEmbed = new EmbedBuilder()
+                    .setColor('#00FF80')
+                    .setTitle(`Battle Rewards`)
+                    .setDescription(`This Week's **Battle Reward Winners** Are:`)
+                    .setFooter({ text: `Battle Rewards.`, iconURL: 'http://battle-bot.com/images/GeneralDeath.png' })
+                    .setTimestamp();
+        
+                // Dynamically add fields based on the number of players
+                if (Board[0]) {
+                    winnersEmbed.addFields(
+                        { name: `Rank 1:`, value: `<@${Board[0].discord_id}> **Wins:** ${Board[0].battle_wins}`, inline: true }
+                    );
+                }
+                if (Board[1]) {
+                    winnersEmbed.addFields(
+                        { name: `Rank 2:`, value: `<@${Board[1].discord_id}> **Wins:** ${Board[1].battle_wins}`, inline: true }
+                    );
+                }
+                if (Board[2]) {
+                    winnersEmbed.addFields(
+                        { name: `Rank 3:`, value: `<@${Board[2].discord_id}> **Wins:** ${Board[2].battle_wins}`, inline: true }
+                    );
+                }
+        
+                // Add a closing message field
+                winnersEmbed.addFields(
+                    { name: `All Rewards have been sent to the Winners via DM`, value: `The **Leaderboard** has been **Reset**, who will **Lead** this week?`, inline: false }
+                );
+        
+                const levelUpChannels = await sql.Execute(`SELECT * FROM settings WHERE 1`);
+                for (let channel of levelUpChannels) {
+                    try {
+                        const sendChannel = client.channels.cache.get(channel.level_up_channel_id) || await client.channels.fetch(channel.level_up_channel_id);
+                        await sendChannel.send({ content: '**Congratulations**', embeds: [winnersEmbed] });
+                    } catch (e) {
+                        console.error(`Error sending winners' message to channel (ID: ${channel.level_up_channel_id}):`, e);
+                    }
+                }
             } catch (e) {
                 console.error(`Error in scheduled task:`, e);
             }
-        });               
+        });        
 
         const guildSettingsUpdate = nodeCron.schedule("0,15,30,45 * * * *", () => {
                 console.log("Guild Settings Update")
