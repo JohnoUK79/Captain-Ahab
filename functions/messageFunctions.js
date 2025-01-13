@@ -22,7 +22,7 @@ module.exports = {
 				{ name: `Sent By:`, value: `<@${message.author.id}>` },
 				)
 			.setTimestamp()
-			.setFooter({ text: 'Message Received!.', iconURL: 'http://battle-bot.com/img/gifs/Warpath.jpg' });
+			.setFooter({ text: 'Message Received!.', iconURL: 'http://battle-bot.com/images/GeneralDeath.png' });
 
 			//970409125227950110 PH Family Bot Messages
 			//1033492139964895302 SE17 Bot Messages
@@ -31,7 +31,7 @@ module.exports = {
 				embeds: [dmReceived],
 			})
 			dmReceived.setDescription('Your messaged will be reviewed by our BOT Team and we will come back to you if we need further information!')
-			dmReceived.setFooter({ text: 'Message Sent!.', iconURL: 'http://battle-bot.com/img/gifs/Warpath.jpg' })
+			dmReceived.setFooter({ text: 'Message Sent!.', iconURL: 'http://battle-bot.com/images/GeneralDeath.png' })
 			dmReceived.setTitle('Your Message Has Been Sent!')
 
 			await message.reply ({
@@ -46,7 +46,7 @@ module.exports = {
 				.setAuthor({ name: `${message.author.username}#${message.author.discriminator}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
 				.setDescription(`Attachment Received By the Bot!`)
 				.setTimestamp()
-				.setFooter({ text: 'Attachment Received!.', iconURL: 'http://battle-bot.com/img/gifs/Warpath.jpg' });
+				.setFooter({ text: 'Attachment Received!.', iconURL: 'http://battle-bot.com/images/GeneralDeath.png' });
 
 			let attachments = message.attachments
 			for (const attachment of attachments) {
