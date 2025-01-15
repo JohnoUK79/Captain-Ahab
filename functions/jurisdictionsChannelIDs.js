@@ -14,7 +14,7 @@ const jurisdictionsChannelIDs = [
     '1013022541561995284', //PH40 Reborn
     '958408697703432274', //PHAK / EA / AA Server
     '1026959441708470302', //PHU - UNIVERSITY
-    '1029857915458297956', //SE17 Elite Fighters
+    '1329191350075396137', //Fire
     '1069297333608657086', //WodinsWarriors
     '1089299706959638619', //Warpath Hooligans 
     ];
