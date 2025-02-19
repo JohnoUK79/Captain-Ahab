@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const { Client, GatewayIntentBits, Collection, Options } = require("discord.js");
-const rpc = require("discord-rpc");
+//const rpc = require("discord-rpc");
 const { token, CLIENT_ID } = require('./config.json');
 //Discord client
 const client = new Client({
@@ -54,7 +54,7 @@ const client = new Client({
 const commandCooldowns = new Collection();
 
 //RPC client
-const rpc_client = new rpc.Client({ transport: 'ipc' });
+//const rpc_client = new rpc.Client({ transport: 'ipc' });
 
 //Build command collection
 const commandFiles = fs
@@ -86,21 +86,21 @@ for (const file of eventFiles) {
 }
 
 //RPC setup
-const rpcFiles = fs
-    .readdirSync("./rpc")
-    .filter(file => file.endsWith(".js"));
+// const rpcFiles = fs
+//     .readdirSync("./rpc")
+//     .filter(file => file.endsWith(".js"));
 
-for (const file of rpcFiles) {
-    const rpc = require(`./rpc/${file}`);
-    rpc_client.on(rpc.name, (...args) => rpc.execute(...args, rpc_client));
-}
+// for (const file of rpcFiles) {
+//     const rpc = require(`./rpc/${file}`);
+//     rpc_client.on(rpc.name, (...args) => rpc.execute(...args, rpc_client));
+// }
 
 //Discord login
 client.login(token);
 
 //RPC login
-rpc_client.login({ clientId: CLIENT_ID }).catch(console.error);
-module.exports = {
-    commandCooldowns: commandCooldowns,
-    client: client
-}
+// rpc_client.login({ clientId: CLIENT_ID }).catch(console.error);
+// module.exports = {
+//     commandCooldowns: commandCooldowns,
+//     client: client
+// }
