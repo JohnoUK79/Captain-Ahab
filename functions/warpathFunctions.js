@@ -1536,7 +1536,7 @@ module.exports = {
         
             if (!Unit || Unit.length === 0) {
                 console.error("Error: No available unique unit found.");
-                return interaction.reply({ content: "⚠️ No new unit available for you at this time.", ephemeral: true });
+                return interaction.reply({ content: "⚠️ No new unit available for you at this time. You have unlocked all Units currently available. There will be Naval Units added Soon!", ephemeral: true });
             }
         
             // Randomly select a new unit from the available ones
