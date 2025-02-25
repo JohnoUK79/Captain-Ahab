@@ -1509,18 +1509,62 @@ module.exports = {
         } else console.log(`No Officer Upgrade Required`)
 
         if (prestige > 9) {
-            const Current = await sql.Execute(`SELECT * FROM playerunits WHERE discord_id = '${interaction.member.id}' AND unit_type = '${newUnitType}'`)
-            const Unit = await sql.Execute(`SELECT * FROM units WHERE Unit_Level = '${newUnitLevel}' AND Unit_Type LIKE '%${newUnitType}%' AND '${Current[0].camp}' NOT IN (Camp)`)
-            unitSelection = Unit[Math.floor(Math.random() * Unit.length)]
-            newUnitImage = new AttachmentBuilder(`./img/${unitSelection.Image}`)
-            module.exports = unitSelection = unitSelection, newUnitImage = newUnitImage    
+            // Fetch player's currently owned units of this type
+            const Current = await sql.Execute(`
+                SELECT camp FROM playerunits 
+                WHERE discord_id = '${interaction.member.id}' 
+                AND unit_type = '${newUnitType}'
+            `);
+        
+            console.log("Debug: Current owned units result:", Current);
+        
+            // Convert existing camps to a list for exclusion
+            const ownedCamps = Current.map(row => `'${row.camp}'`).join(", ");
+            console.log("Debug: Owned camps:", ownedCamps);
+        
+            // Ensure we only pick a unit the player doesn't own
+            const query = `
+                SELECT * FROM units 
+                WHERE Unit_Level = '${newUnitLevel}' 
+                AND Unit_Type LIKE '%${newUnitType}%'
+                ${ownedCamps ? `AND Camp NOT IN (${ownedCamps})` : ""}
+            `;
+        
+            console.log("Debug: Query being executed:", query);
+            
+            const Unit = await sql.Execute(query);
+        
+            if (!Unit || Unit.length === 0) {
+                console.error("Error: No available unique unit found.");
+                return interaction.reply({ content: "⚠️ No new unit available for you at this time.", ephemeral: true });
+            }
+        
+            // Randomly select a new unit from the available ones
+            unitSelection = Unit[Math.floor(Math.random() * Unit.length)];
+            newUnitImage = new AttachmentBuilder(`./img/${unitSelection.Image}`);
+        
+            module.exports.unitSelection = unitSelection;
+            module.exports.newUnitImage = newUnitImage;
         } else {
-            const Unit = await sql.Execute(`SELECT * FROM units WHERE Unit_Level = '${newUnitLevel}' AND Unit_Type LIKE '%${newUnitType}%'`)
-            unitSelection = Unit[Math.floor(Math.random() * Unit.length)]
-            newUnitImage = new AttachmentBuilder(`./img/${unitSelection.Image}`)
-            module.exports.unitSelection = unitSelection
-            module.exports.newUnitImage = newUnitImage
+            // Normal unit selection when prestige is ≤ 9
+            const Unit = await sql.Execute(`
+                SELECT * FROM units 
+                WHERE Unit_Level = '${newUnitLevel}' 
+                AND Unit_Type LIKE '%${newUnitType}%'
+            `);
+        
+            if (!Unit || Unit.length === 0) {
+                console.error("Error: No available units found in the database.");
+                return interaction.reply({ content: "⚠️ No available unit found. Try again later.", ephemeral: true });
+            }
+        
+            unitSelection = Unit[Math.floor(Math.random() * Unit.length)];
+            newUnitImage = new AttachmentBuilder(`./img/${unitSelection.Image}`);
+        
+            module.exports.unitSelection = unitSelection;
+            module.exports.newUnitImage = newUnitImage;
         }
+                
 
 
         newUnitEmbed
