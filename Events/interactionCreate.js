@@ -315,11 +315,17 @@ module.exports = {
             } catch (err) {console.log(err)}
             }
     
+        const { commandCooldowns } = require('../bot');
 
         if (!interaction.isChatInputCommand()) return;
         try {
             const command = interaction.client.commands.get(interaction.commandName)
             const { commandCooldowns } = require('../bot');
+            console.log("Debug - commandCooldowns:", commandCooldowns);
+            if (!commandCooldowns) {
+                console.error("Error: commandCooldowns is undefined.");
+            }
+            
             const t = commandCooldowns.get(`${interaction.user.id}_${interaction.commandName}`) || 0
             if (Date.now() - t < 0) {
             guildName = interaction.guild.name

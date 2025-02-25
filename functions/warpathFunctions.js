@@ -1540,8 +1540,21 @@ module.exports = {
             .setFooter({ text: `${guildName} - ${interaction.customId}`, iconURL: `${guildIcon}` });
         const emoji = unitSelection.Image.replace('.jpg', '')
         const updateUnit = await sql.Execute(`UPDATE playerunits SET emoji = '${emoji}', unit_level = '${Level[0].unit_level}', Unit_ID = '${unitSelection.Unit_ID}' WHERE discord_id = '${interaction.member.id}' AND camp = '${Level[0].unit_camp}' AND unit_type = '${Level[0].unit_type}'`)
-        const saveNewUnit = await sql.Execute(`INSERT INTO playerunits (discord_id, camp, unit_type, unit_level, unit_id) VALUES ('${interaction.member.id}', '${unitSelection.Camp}', '${unitSelection.Unit_Type}', '${unitSelection.Unit_Level}', '${unitSelection.Unit_ID}')`)
-        const updateNewUnit = await sql.Execute(`UPDATE levels SET Unit_Camp = '${unitSelection.Camp}', Unit_Type = '${unitSelection.Unit_Type}', Unit_Level = '${unitSelection.Unit_Level}', prestige = '${newPrestige}' WHERE discord_id = '${interaction.member.id}'`)
+        try {
+            const saveNewUnit = await sql.Execute(`
+                INSERT INTO playerunits (discord_id, camp, unit_type, unit_level, unit_id) 
+                VALUES ('${interaction.member.id}', '${unitSelection.Camp}', '${unitSelection.Unit_Type}', '${unitSelection.Unit_Level}', '${unitSelection.Unit_ID}')
+            `);
+            console.log(`New unit added successfully for ${interaction.member.id}`);
+        } catch (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                console.log(`Duplicate unit detected: ${interaction.member.id} already owns a ${unitSelection.Unit_Type} in ${unitSelection.Camp}`);
+                await interaction.reply({ content: `⚠️ You already own a **${unitSelection.Unit_Type}** in **${unitSelection.Camp}**. You cannot have duplicates.`, ephemeral: true });
+            } else {
+                console.error(`Database Error: ${error.message}`);
+            }
+        }
+                const updateNewUnit = await sql.Execute(`UPDATE levels SET Unit_Camp = '${unitSelection.Camp}', Unit_Type = '${unitSelection.Unit_Type}', Unit_Level = '${unitSelection.Unit_Level}', prestige = '${newPrestige}' WHERE discord_id = '${interaction.member.id}'`)
         console.log(`Update Unit:${updateUnit.info}`)
         console.log(`Update New Unit:${updateNewUnit.info}`)
         console.log(`Save New Unit:${saveNewUnit.info}`)
