@@ -2,7 +2,7 @@ const time = require('../config/timestamp')
 const sql = require("../config/Database");
 const { EmbedBuilder } = require('discord.js');
 const ms = require('ms-prettify').default
-const { battleBotHelp, buyBank, buyBase, chestUpgrade, baseUpgrade, cancel, buyOfficer, buyOfficer10, officerUpgrade, officerSelect, unitUpgrade, unitSelect, buyUnit, profile, newUnit, selectunit, selectofficer, selectgroundofficer, selectairofficer, skillupgrade, campaign, challenge, selectunitmenu, selectofficermenu, newOfficer} = require('../functions/warpathFunctions');
+const { battleBotHelp, buyBank, buyBank10, buyBase, buyBase10, chestUpgrade, baseUpgrade, cancel, buyOfficer, buyOfficer10, officerUpgrade, officerSelect, unitUpgrade, unitSelect, buyUnit, profile, newUnit, selectunit, selectofficer, selectgroundofficer, selectairofficer, skillupgrade, campaign, challenge, selectunitmenu, selectofficermenu, newOfficer} = require('../functions/warpathFunctions');
 const { campaignMode } = require('../functions/campaignMode');
 
 module.exports = {
@@ -22,6 +22,11 @@ module.exports = {
             buyBank(interaction)
             } catch (err) {console.log(err)}
             }
+            if (interaction.customId === 'buybank10') {
+            try {
+            buyBank10(interaction)
+            } catch (err) {console.log(err)}
+            }
             if (interaction.customId === 'base') {
             try {
             baseUpgrade(interaction)
@@ -32,6 +37,12 @@ module.exports = {
             buyBase(interaction)
             } catch (err) {console.log(err)}
             }
+            if (interaction.customId === 'buybase10') {
+            try {
+            buyBase10(interaction)
+            } catch (err) {console.log(err)}
+            }
+
             if (interaction.customId === 'officer') {
             try {
             officerUpgrade(interaction)
