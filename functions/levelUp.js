@@ -9,7 +9,6 @@ module.exports = {
 		var score = Math.floor(Math.random() * 150) * 3;
 		warChest = Levels[0].war_chest
 		officerLevel = Levels[0].officer_level
-		console.log(warChest, officerLevel)
 		const updatePlayer =  new ActionRowBuilder()
 				.addComponents(
 		new ButtonBuilder()
@@ -179,7 +178,7 @@ module.exports = {
 		if (level === 10) {
 			bonus = officerLevel * level * 1000000
 			console.log(bonus)
-			let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+			let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 			console.log(newBonus.info)
 			console.log("Rank Up")
 			if (!roleRank10) {
@@ -200,7 +199,7 @@ module.exports = {
 		if (level === 20) {
 			bonus = officerLevel * level * 1000000
 			console.log(bonus)
-			let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+			let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 			console.log(newBonus.info)
 			console.log("Rank Up")
 			if (!roleRank20) {
@@ -221,7 +220,7 @@ module.exports = {
 		if (level === 30) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank30) {
@@ -241,7 +240,7 @@ module.exports = {
 		if (level === 40) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank40) {
@@ -261,7 +260,7 @@ module.exports = {
 		if (level === 50) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank50) {
@@ -281,7 +280,7 @@ module.exports = {
 		if (level === 60) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank60) {
@@ -301,7 +300,7 @@ module.exports = {
 		if (level === 70) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank70) {
@@ -321,7 +320,7 @@ module.exports = {
 		if (level === 80) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank80) {
@@ -341,7 +340,7 @@ module.exports = {
 		if (level === 90) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank90) {
@@ -361,7 +360,7 @@ module.exports = {
 		if (level === 100) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank100) {
@@ -381,7 +380,7 @@ module.exports = {
 		if (level === 250) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank100) {
@@ -401,7 +400,7 @@ module.exports = {
 		if (level === 500) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank500) {
@@ -421,7 +420,7 @@ module.exports = {
 		if (level === 1000) {
 		bonus = officerLevel * level * 1000000
 		console.log(bonus)
-		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank1000) {
