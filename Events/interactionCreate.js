@@ -348,7 +348,6 @@ module.exports = {
             if (interaction.guild.id === '1314362756656533514') { // Test Server
             	commandCooldowns.set(`${interaction.user.id}_${interaction.commandName}`, 0)
             }
-            console.log(t)
             await command.execute(interaction);
             
     } catch (error) {
