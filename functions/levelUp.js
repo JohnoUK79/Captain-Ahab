@@ -7,7 +7,9 @@ module.exports = {
 		Settings = await sql.Execute(`select * from settings where guild_id = '${message.guild.id}';`); 
 		Levels = await sql.Execute(`select * from levels where discord_id = '${message.author.id}';`); 
 		var score = Math.floor(Math.random() * 150) * 3;
-
+		warChest = Levels[0].war_chest
+		officerLevel = Levels[0].officer_level
+		console.log(warChest, officerLevel)
 		const updatePlayer =  new ActionRowBuilder()
 				.addComponents(
 		new ButtonBuilder()
@@ -175,6 +177,10 @@ module.exports = {
 			}) 
 
 		if (level === 10) {
+			bonus = officerLevel * level * 1000000
+			console.log(bonus)
+			let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+			console.log(newBonus.info)
 			console.log("Rank Up")
 			if (!roleRank10) {
 			console.log("No Role Set")
@@ -192,6 +198,10 @@ module.exports = {
 		} 
 
 		if (level === 20) {
+			bonus = officerLevel * level * 1000000
+			console.log(bonus)
+			let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+			console.log(newBonus.info)
 			console.log("Rank Up")
 			if (!roleRank20) {
 			console.log("No Role Set")
@@ -209,6 +219,10 @@ module.exports = {
 		} 
 
 		if (level === 30) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank30) {
 		console.log("No Role Set")
@@ -223,9 +237,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	} 
-
+		} 
 		if (level === 40) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank40) {
 		console.log("No Role Set")
@@ -240,9 +257,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 		embeds: [devSupport],
 		})} 
-	} 
-
+		} 
 		if (level === 50) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank50) {
 		console.log("No Role Set")
@@ -257,9 +277,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	} 
-
+		} 
 		if (level === 60) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank60) {
 		console.log("No Role Set")
@@ -274,9 +297,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	} 
-
+		} 
 		if (level === 70) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank70) {
 		console.log("No Role Set")
@@ -291,9 +317,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	} 
-
+		} 
 		if (level === 80) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank80) {
 		console.log("No Role Set")
@@ -308,9 +337,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	} 
-
+		} 
 		if (level === 90) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank90) {
 		console.log("No Role Set")
@@ -325,9 +357,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	} 
-
+		} 
 		if (level === 100) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank100) {
 		console.log("No Role Set")
@@ -342,8 +377,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	}
-	if (level === 250) {
+		}
+		if (level === 250) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank100) {
 		console.log("No Role Set")
@@ -358,8 +397,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	}
-	if (level === 500) {
+		}
+		if (level === 500) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank500) {
 		console.log("No Role Set")
@@ -374,8 +417,12 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	}
-	if (level === 1000) {
+		}
+		if (level === 1000) {
+		bonus = officerLevel * level * 1000000
+		console.log(bonus)
+		let newBonus = sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
+		console.log(newBonus.info)
 		console.log("Rank Up")
 		if (!roleRank1000) {
 		console.log("No Role Set")
@@ -390,7 +437,9 @@ module.exports = {
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
-	}   
-	}
-	let result = await sql.Execute (`UPDATE levels SET points = '${newPoints}', level = '${level}', discord_username = '${message.member.displayName}', discord_avatar = '${message.author.displayAvatarURL()}', last_seen_server = '${guildName}' WHERE discord_id = '${message.author.id}'`)}
+		}   
+		}
+		let result = await sql.Execute (`UPDATE levels SET points = '${newPoints}', level = '${level}', discord_username = '${message.member.displayName}', discord_avatar = '${message.author.displayAvatarURL()}', last_seen_server = '${guildName}' WHERE discord_id = '${message.author.id}'`)
+		console.log(result.info)
+	},
 }
