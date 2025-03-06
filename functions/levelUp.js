@@ -185,14 +185,14 @@ module.exports = {
 			console.log("No Role Set")
 			await message.guild.channels.cache.get(LevelUpChannel).send({
 				embeds: [devSupport],
-				content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Private**`
+				content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Private** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`
 			}) 					
 			} else {
 			console.log(roleRank10)
 			await message.member.roles.add(roleRank10).catch((e) => console.log(e))
 			await message.guild.channels.cache.get(LevelUpChannel).send({
 				embeds: [devSupport],
-				content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r10name.name}**`
+				content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r10name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`
 			})}
 		} 
 
@@ -204,14 +204,14 @@ module.exports = {
 			console.log("Rank Up")
 			if (!roleRank20) {
 			console.log("No Role Set")
-			await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Corporal**`})
+			await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Corporal** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 			await message.guild.channels.cache.get(LevelUpChannel).send({
 				embeds: [devSupport],
 			}) 						
 			} else {
 			console.log(roleRank20)
 			await message.member.roles.add(roleRank20).catch((e) => console.log(e))
-			await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r20name.name}**` })
+			await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r20name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 			await message.guild.channels.cache.get(LevelUpChannel).send({
 				embeds: [devSupport],
 			})} 
@@ -225,14 +225,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank30) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Sergeant**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Sergeant** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank30)
 		await message.member.roles.add(roleRank30).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r30name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r30name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -245,14 +245,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank40) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Lieutenant**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Lieutenant** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank40)
 		await message.member.roles.add(roleRank40).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r40name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r40name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 		embeds: [devSupport],
 		})} 
@@ -265,14 +265,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank50) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Captain**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Captain** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank50)
 		await message.member.roles.add(roleRank50).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r50name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r50name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -285,14 +285,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank60) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Major**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Major** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank60)
 		await message.member.roles.add(roleRank60).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r60name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r60name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -305,14 +305,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank70) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Colonel**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Colonel** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank70)
 		await message.member.roles.add(roleRank70).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r70name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r70name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -325,14 +325,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank80) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Major General**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Major General** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank80)
 		await message.member.roles.add(roleRank80).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r80name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r80name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -345,14 +345,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank90) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **General**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **General** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank90)
 		await message.member.roles.add(roleRank90).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r90name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r90name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -365,14 +365,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank100) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **General of The Army**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **General of The Army** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank100)
 		await message.member.roles.add(roleRank100).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r100name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r100name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -385,14 +385,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank100) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Chief of Staff**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **Chief of Staff** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank250)
 		await message.member.roles.add(roleRank250).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r250name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r250name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -405,14 +405,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank500) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **President**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **President** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank500)
 		await message.member.roles.add(roleRank500).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r500name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r500name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
@@ -425,14 +425,14 @@ module.exports = {
 		console.log("Rank Up")
 		if (!roleRank1000) {
 		console.log("No Role Set")
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **God**`})
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **God** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**`})
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		}) 
 		} else {
 		console.log(roleRank1000)
 		await message.member.roles.add(roleRank1000).catch((e) => console.log(e))
-		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r1000name.name}**` })
+		await message.guild.channels.cache.get(LevelUpChannel).send({ content: `Congratulations **<@${message.member.id}>**, you have Ranked Up and achieved the rank of **${r1000name.name}** \nFor your Loyalty **$${bonus.toLocaleString()}** has been added to your **War-Chest**` })
 		await message.guild.channels.cache.get(LevelUpChannel).send({
 			embeds: [devSupport],
 		})} 
