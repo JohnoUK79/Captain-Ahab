@@ -215,7 +215,7 @@ while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction
     interaction.editReply({ embeds: [embed], files: [attackImage] });
     console.log(`Attacker hit for ${Battles[interaction.id].Attacker.AttackPower.toLocaleString()}`)
     if (Battles[interaction.id].id === 30) {
-        embed.setDescription(`Your Battle with ${campaignOfficer} has lasted for 30 rounds with a decisive Winner and is deemed a draw!`);
+        embed.setDescription(`Your Battle with ${campaignOfficer} has lasted for 30 rounds without a decisive Winner and is deemed a draw!`);
         
         return interaction.editReply({ embeds: [embed], files: [attackImage] });
     }
@@ -257,7 +257,7 @@ while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction
         interaction.editReply({ embeds: [embed], files: [defendImage] });
     console.log(`Defender hit for ${Battles[interaction.id].Defender.AttackPower.toLocaleString()}`)
     if (Battles[interaction.id].id === 30) {
-        embed.setDescription(`Your Battle with ${campaignOfficer} has lasted for 30 rounds with a decisive Winner and is deemed a draw!`);
+        embed.setDescription(`Your Battle with ${campaignOfficer} has lasted for 30 rounds without a decisive Winner and is deemed a draw!`);
         
         return interaction.editReply({ embeds: [embed], files: [attackImage] });
     }
