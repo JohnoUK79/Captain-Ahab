@@ -191,7 +191,7 @@ while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction
     campSelection(interaction) 
     attackerSkills(interaction)
     Battles[interaction.id].Attacker.BattleHealth = Battles[interaction.id].Attacker.BattleHealth - Battles[interaction.id].Defender.AttackPower
-
+    
     embed
         .setColor(Battles[interaction.id].Defender.Color)
         .setThumbnail(`attachment://${Battles[interaction.id].Defender.ImageFile}`)
@@ -214,6 +214,12 @@ while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction
         .setDescription(`${Battles[interaction.id].Attacker.Player}'s **${Battles[interaction.id].Attacker.Name}** hit **${campaignOfficer}**'s **${Battles[interaction.id].Defender.Name}**! Dealing **${Battles[interaction.id].Attacker.AttackPower.toLocaleString()}** damage!\n**${campaignOfficer}**'s **${Battles[interaction.id].Defender.Name}** has **${Battles[interaction.id].Defender.BattleHealth.toLocaleString()}** health remaining!`)
     interaction.editReply({ embeds: [embed], files: [attackImage] });
     console.log(`Attacker hit for ${Battles[interaction.id].Attacker.AttackPower.toLocaleString()}`)
+    if (Battles[interaction.id].id === 30) {
+        embed.setDescription(`Your Battle with ${campaignOfficer} has lasted for 30 rounds with a decisive Winner and is deemed a draw!`);
+        
+        return interaction.editReply({ embeds: [embed], files: [attackImage] });
+    }
+    
     await sleep(800)      
 }
 } else {
@@ -250,6 +256,12 @@ while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction
             .setDescription(`**${campaignOfficer}**'s **${Battles[interaction.id].Defender.Name}** hit ${Battles[interaction.id].Attacker.Player}'s **${Battles[interaction.id].Attacker.Name}**! Dealing **${Battles[interaction.id].Defender.AttackPower.toLocaleString()}** damage!\n${Battles[interaction.id].Attacker.Player}'s **${Battles[interaction.id].Attacker.Name}** has **${Battles[interaction.id].Attacker.BattleHealth.toLocaleString()}** health remaining!`)
         interaction.editReply({ embeds: [embed], files: [defendImage] });
     console.log(`Defender hit for ${Battles[interaction.id].Defender.AttackPower.toLocaleString()}`)
+    if (Battles[interaction.id].id === 30) {
+        embed.setDescription(`Your Battle with ${campaignOfficer} has lasted for 30 rounds with a decisive Winner and is deemed a draw!`);
+        
+        return interaction.editReply({ embeds: [embed], files: [attackImage] });
+    }
+    
     await sleep(800)      
     }
 }
