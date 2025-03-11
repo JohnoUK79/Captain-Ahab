@@ -340,6 +340,8 @@ module.exports = {
                 const Damage = interaction.Attacker.SkillMultiplier * (interaction.Attacker.AttackPower * .1) 
                 interaction.Attacker.AttackPower = interaction.Attacker.AttackPower + Damage
                 console.log(`Attacker Skill Unit Buff`, Damage)
+                console.log(Damage.toLocaleString())
+
             }  
             const skillSuccess = chance[Math.floor(Math.random() * chance.length)]
             if (skillSuccess === 'Yes') {
@@ -354,7 +356,7 @@ module.exports = {
                         .setColor(interaction.Attacker.SkillColor)
                         .setImage(RedCross)
                         .addFields(
-                            { name: `${interaction.Attacker.OfficerSkill}`, value: `**${interaction.Attacker.Officer}** & reduces **${interaction.Defender.Player}** **${interaction.Defender.Name}'s Heal** by **${Health.toLocaleString()}**` },
+                            { name: `${interaction.Attacker.OfficerSkill}`, value: `**${interaction.Attacker.Officer}** & reduces **${interaction.Defender.Player}** **${interaction.Defender.Name}'s Health** by **${Health.toLocaleString()}**` },
                     ) 
                 }
 
@@ -362,9 +364,8 @@ module.exports = {
                     .setColor(interaction.Attacker.SkillColor)
                     .setThumbnail(Boom)
                     .addFields(
-                        { name: `${interaction.Attacker.Officer}`, value: `used the **${interaction.Attacker.OfficerSkill} Skill** & increases ${interaction.member} **${interaction.Attacker.Name}'s Attack** by **${damage.toLocaleString()}**` },
+                        { name: `${interaction.Attacker.Officer}`, value: `used the **${interaction.Attacker.OfficerSkill} Skill** & increases ${interaction.member} **${interaction.Attacker.Name}'s Attack** by **${Power.toLocaleString()}**` },
                     ),   
-            console.log(damage.toLocaleString())
             interaction.Attacker.SkillUsed = 'Attack'
             interaction.followUp({embeds: [skillEmbed]})
             return
