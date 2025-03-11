@@ -826,7 +826,7 @@ module.exports = {
                     { name: `Upgrade Cost:`, value: `$${cost.toLocaleString()}`, inline: true },
                 )
                 .setFooter({ text: `${guildName} - ${interaction.customId}`, iconURL: `${guildIcon}` });
-            return interaction.update({ embeds: [upgradeOfficerEmbed], components: [upgradeOfficerButtons], files: [playerImage] })
+            return interaction.update({ embeds: [upgradeOfficerEmbed], components: [upgradeOfficerButtons, upgradeOfficerButtons2], files: [playerImage] })
         }
         const newWallet = wallet - cost
         const newOfficer = officerLevel + 1
@@ -905,15 +905,19 @@ module.exports = {
                     .setCustomId("buyofficer100")
                     .setLabel('Upgrade x 100')
                     .setStyle(ButtonStyle.Success),
+            )
+            const upgradeOfficerButtons2 = new ActionRowBuilder()
+            .addComponents(
                 new ButtonBuilder()
                     .setCustomId("cancel")
                     .setLabel('Cancel Upgrade')
                     .setStyle(ButtonStyle.Danger),
-            new ButtonBuilder()
-                .setCustomId("profile")
-                .setLabel('Profile')
-                .setStyle(ButtonStyle.Secondary),
+                new ButtonBuilder()
+                    .setCustomId("profile")
+                    .setLabel('Profile')
+                    .setStyle(ButtonStyle.Secondary),
             )
+
         const guildIcon = interaction.member.guild.iconURL();
         const guildName = interaction.member.guild.name
         const wallet = Level[0].war_coins
@@ -1257,7 +1261,7 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId("cancel")
                     .setLabel('Upgrade')
-                    .setStyle(ButtonStyle.Success),
+                    .setStyle(ButtonStyle.Danger),
                 new ButtonBuilder()
                     .setCustomId("profile")
                     .setLabel('Profile')
@@ -1334,6 +1338,17 @@ module.exports = {
                     .setCustomId("skillupgrade")
                     .setLabel('Upgrade Skill')
                     .setStyle(ButtonStyle.Primary),
+            )
+            const upgradeOfficerButtons2 = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId("cancel")
+                    .setLabel('Cancel Upgrade')
+                    .setStyle(ButtonStyle.Danger),
+                new ButtonBuilder()
+                    .setCustomId("profile")
+                    .setLabel('Profile')
+                    .setStyle(ButtonStyle.Secondary),
             )
         const chooseOfficerButtons = new ActionRowBuilder()
             .addComponents(
@@ -1421,7 +1436,7 @@ module.exports = {
                 )
                 .setFooter({ text: `${guildName} - ${interaction.customId}`, iconURL: `${guildIcon}` });
 
-        return interaction.update({ embeds: [upgradeOfficerEmbed], components: [upgradeOfficerButtons], files: [playerImage] })
+        return interaction.update({ embeds: [upgradeOfficerEmbed], components: [upgradeOfficerButtons, upgradeOfficerButtons2], files: [playerImage] })
     },
     unitUpgrade: async function (interaction) {
         const upgradeUnitEmbed = new EmbedBuilder();
@@ -2009,7 +2024,7 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId("profile")
                     .setLabel('Profile')
-                    .setStyle(ButtonStyle.Primary),
+                    .setStyle(ButtonStyle.Secondary),
             )
         const guildIcon = interaction.member.guild.iconURL();
         const guildName = interaction.member.guild.name
