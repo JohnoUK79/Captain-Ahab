@@ -2,7 +2,7 @@ const time = require('../config/timestamp')
 const sql = require("../config/Database");
 const { EmbedBuilder } = require('discord.js');
 const ms = require('ms-prettify').default
-const { battleBotHelp, buyBank, buyBank10, buyBank100, buyBase, buyBase10, buyBase100, chestUpgrade, baseUpgrade, cancel, buyOfficer, buyOfficer10, officerUpgrade, officerSelect, unitUpgrade, unitSelect, buyUnit, profile, newUnit, selectunit, selectofficer, selectgroundofficer, selectairofficer, skillupgrade, campaign, challenge, selectunitmenu, selectofficermenu, newOfficer} = require('../functions/warpathFunctions');
+const { battleBotHelp, buyBank, buyBank10, buyBank100, buyBase, buyBase10, buyBase100, chestUpgrade, baseUpgrade, cancel, buyOfficer, buyOfficer10, buyOfficer100, officerUpgrade, officerSelect, unitUpgrade, unitSelect, buyUnit, profile, newUnit, selectunit, selectofficer, selectgroundofficer, selectairofficer, skillupgrade, campaign, challenge, selectunitmenu, selectofficermenu, newOfficer} = require('../functions/warpathFunctions');
 const { campaignMode } = require('../functions/campaignMode');
 
 module.exports = {
@@ -70,6 +70,11 @@ module.exports = {
             if (interaction.customId === 'buyofficer10') {
             try {
             buyOfficer10(interaction)
+            } catch (err) {console.log(err)}
+            }
+            if (interaction.customId === 'buyofficer100') {
+            try {
+            buyOfficer100(interaction)
             } catch (err) {console.log(err)}
             }
             if (interaction.customId === 'troop') {

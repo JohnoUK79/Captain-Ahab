@@ -358,7 +358,7 @@ module.exports = {
 		})} 
 		} 
 		if (level === 100) {
-		bonus = officerLevel * level * 1000000
+		bonus = officerLevel * level * 100000
 		console.log(bonus)
 		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
@@ -378,7 +378,7 @@ module.exports = {
 		})} 
 		}
 		if (level === 250) {
-		bonus = officerLevel * level * 1000000
+		bonus = officerLevel * level * 100000
 		console.log(bonus)
 		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
@@ -398,7 +398,7 @@ module.exports = {
 		})} 
 		}
 		if (level === 500) {
-		bonus = officerLevel * level * 1000000
+		bonus = officerLevel * level * 100000
 		console.log(bonus)
 		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
@@ -418,7 +418,7 @@ module.exports = {
 		})} 
 		}
 		if (level === 1000) {
-		bonus = officerLevel * level * 1000000
+		bonus = officerLevel * level * 100000
 		console.log(bonus)
 		let newBonus = await sql.Execute((`UPDATE levels SET war_chest = '${warChest + bonus}' WHERE discord_id = '${message.author.id}'`))
 		console.log(newBonus.info)
