@@ -172,6 +172,12 @@ class Battle {
             ephemeral: true
         })
     }
+    draw() {
+        return interaction.followUp({
+            content: `**You were unable to defeat ${campaignOfficer} within 30 rounds, resulting in a Draw. Pair your Unit & Officer Camp to Increase Damage!`,
+            ephemeral: false
+        })
+    }
   }
   const Battles = [];
   Battles[interaction.id] = new Battle({
@@ -182,7 +188,19 @@ class Battle {
 if (Battles[interaction.id].Attacker.Speed < Battles[interaction.id].Defender.Speed) {
 console.log(`Attacker Speed: ${Battles[interaction.id].Attacker.Speed} Defender Speed: ${Battles[interaction.id].Defender.Speed}`)
 while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction.id].Attacker.BattleHealth >= 0) {
-    console.count(`Battle ID: ${Battles[interaction.id].id} Round`)
+    if (!Battles[interaction.id].roundCounter) {
+        Battles[interaction.id].roundCounter = 0;
+    }
+    Battles[interaction.id].roundCounter++;
+    useRoundNumber(Battles[interaction.id].roundCounter);
+    function useRoundNumber(round) {
+        console.log(`Processing Round: ${round}`);
+    }
+    if (Battles[interaction.id].roundCounter === 30) {
+        embed
+            .setDescription(`You were unable to defeat **${campaignOfficer} within 30 rounds**, resulting in a **Draw**. Pair your **Unit & Officer Camp** to Increase Damage!`)
+        return interaction.followUp({ embeds: [embed], files: [attackImage] })
+    }   
     await sleep(800)
     Battles[interaction.id].Defender.Multiplier = Battles[interaction.id].Defender.Multiplier + Battles[interaction.id].Defender.Multiplier
     const defendPower = Math.floor(Math.random() * (Battles[interaction.id].Defender.Power - Battles[interaction.id].Defender.Power/2)) + Battles[interaction.id].Defender.Power/2
@@ -214,12 +232,6 @@ while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction
         .setDescription(`${Battles[interaction.id].Attacker.Player}'s **${Battles[interaction.id].Attacker.Name}** hit **${campaignOfficer}**'s **${Battles[interaction.id].Defender.Name}**! Dealing **${Battles[interaction.id].Attacker.AttackPower.toLocaleString()}** damage!\n**${campaignOfficer}**'s **${Battles[interaction.id].Defender.Name}** has **${Battles[interaction.id].Defender.BattleHealth.toLocaleString()}** health remaining!`)
     interaction.editReply({ embeds: [embed], files: [attackImage] });
     console.log(`Attacker hit for ${Battles[interaction.id].Attacker.AttackPower.toLocaleString()}`)
-    if (Battles[interaction.id].id === 30) {
-        embed.setDescription(`Your Battle with ${campaignOfficer} has lasted for 30 rounds without a decisive Winner and is deemed a draw!`);
-        
-        return interaction.editReply({ embeds: [embed], files: [attackImage] });
-    }
-    
     await sleep(800)      
 }
 } else {
@@ -228,7 +240,19 @@ while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction
     attackSelection(interaction)
     campSelection(interaction) 
     defenderSkills(interaction)
-    console.count(`Battle ID: ${Battles[interaction.id].id} Round`)
+    if (!Battles[interaction.id].roundCounter) {
+        Battles[interaction.id].roundCounter = 0;
+    }
+    Battles[interaction.id].roundCounter++;
+    useRoundNumber(Battles[interaction.id].roundCounter);
+    function useRoundNumber(round) {
+        console.log(`Processing Round: ${round}`);
+    }
+    if (Battles[interaction.id].roundCounter === 30) {
+        embed
+            .setDescription(`You were unable to defeat **${campaignOfficer} within 30 rounds**, resulting in a **Draw**. Pair your **Unit & Officer Camp** to Increase Damage!`)
+        return interaction.followUp({ embeds: [embed], files: [attackImage] })
+    }    
     await sleep(800)      
     Battles[interaction.id].Defender.Multiplier = Battles[interaction.id].Defender.Multiplier + Battles[interaction.id].Defender.Multiplier
     const attackPower = Math.floor(Math.random() * (Battles[interaction.id].Attacker.Power - Battles[interaction.id].Attacker.Power/2)) + Battles[interaction.id].Attacker.Power/2
@@ -256,18 +280,19 @@ while (Battles[interaction.id].Defender.BattleHealth >= 0 && Battles[interaction
             .setDescription(`**${campaignOfficer}**'s **${Battles[interaction.id].Defender.Name}** hit ${Battles[interaction.id].Attacker.Player}'s **${Battles[interaction.id].Attacker.Name}**! Dealing **${Battles[interaction.id].Defender.AttackPower.toLocaleString()}** damage!\n${Battles[interaction.id].Attacker.Player}'s **${Battles[interaction.id].Attacker.Name}** has **${Battles[interaction.id].Attacker.BattleHealth.toLocaleString()}** health remaining!`)
         interaction.editReply({ embeds: [embed], files: [defendImage] });
     console.log(`Defender hit for ${Battles[interaction.id].Defender.AttackPower.toLocaleString()}`)
-    if (Battles[interaction.id].id === 30) {
-        embed.setDescription(`Your Battle with ${campaignOfficer} has lasted for 30 rounds without a decisive Winner and is deemed a draw!`);
-        
-        return interaction.editReply({ embeds: [embed], files: [attackImage] });
-    }
-    
     await sleep(800)      
     }
 }
 if (Battles[interaction.id].Defender.BattleHealth < 0) {
     await sleep(1000)      
-    console.count(`Battle ID: ${Battles[interaction.id].id} Round`)
+    if (!Battles[interaction.id].roundCounter) {
+        Battles[interaction.id].roundCounter = 0;
+    }
+    Battles[interaction.id].roundCounter++;
+    useRoundNumber(Battles[interaction.id].roundCounter);
+    function useRoundNumber(round) {
+        console.log(`Processing Round: ${round}`);
+    }
     if (AttackerDB[0].officer_level === 0) {
         attackOfficerLevel = 1
     } else attackOfficerLevel = AttackerDB[0].officer_level
@@ -289,7 +314,7 @@ if (Battles[interaction.id].Defender.BattleHealth < 0) {
         .addFields(
             { name: `Congratulations`, value: `You have defeated **${campaignOfficer}**! You can now challenge the next campaign` },
             { name: `Attackers War-Coins Earned`, value: `**$${winnings.toLocaleString()}**! Well Done ${Battles[interaction.id].Attacker.Player}` },
-            { name: `Battle Duration`, value: `||${battleLength}||` },
+            { name: `Battle Duration`, value: `${battleLength}` },
         )        
         .setDescription(`**${campaignOfficer}**'s **${Battles[interaction.id].Defender.Name}** has been killed by ${Battles[interaction.id].Attacker.Player}'s **${Battles[interaction.id].Attacker.Name} & ${Battles[interaction.id].Attacker.Officer} using ${Battles[interaction.id].Attacker.OfficerSkill}**.`)
 
@@ -301,7 +326,14 @@ Battles[interaction.id].win();
 } else
 if (Battles[interaction.id].Attacker.BattleHealth < 0) {
     await sleep(1000)      
-    console.count(`Battle ID: ${Battles[interaction.id].id} Round`)
+    if (!Battles[interaction.id].roundCounter) {
+        Battles[interaction.id].roundCounter = 0;
+    }
+    Battles[interaction.id].roundCounter++;
+    useRoundNumber(Battles[interaction.id].roundCounter);
+    function useRoundNumber(round) {
+        console.log(`Processing Round: ${round}`);
+    }
     const losses = AttackerDB[0].battle_losses
     const newLosses = parseInt(losses + 1)
     const endTime = Date.now();
@@ -315,7 +347,7 @@ if (Battles[interaction.id].Attacker.BattleHealth < 0) {
         .setImage(`attachment://${Battles[interaction.id].Defender.ImageFile}`)
         .addFields(
             { name: `You Were Unsuccessful`, value: `**You Failed**! You were unable to defeat **${campaignOfficer}**` },
-            { name: `Battle Duration`, value: `||${battleLength}||` },
+            { name: `Battle Duration`, value: `${battleLength}` },
         )     
         .setDescription(`${Battles[interaction.id].Attacker.Player.displayName}'s **${Battles[interaction.id].Attacker.Name}** has been killed by **${campaignOfficer}**'s **${Battles[interaction.id].Defender.Name} & ${Battles[interaction.id].Defender.Officer} using ${Battles[interaction.id].Defender.OfficerSkill}**.`)
     interaction.editReply({ embeds: [embed], files: [defendImage] });

@@ -60,6 +60,10 @@ module.exports = {
                     .setLabel('Upgrade x 10')
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
+                    .setCustomId("buybase100")
+                    .setLabel('Upgrade x 100')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
                     .setCustomId("cancel")
                     .setLabel('Cancel Upgrade')
                     .setStyle(ButtonStyle.Danger),
@@ -133,6 +137,10 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId("buybank10")
                     .setLabel('Upgrade x 10')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("buybank100")
+                    .setLabel('Upgrade x 100')
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
                     .setCustomId("cancel")
@@ -239,6 +247,10 @@ module.exports = {
                     .setLabel('Upgrade x 10')
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
+                    .setCustomId("buybank100")
+                    .setLabel('Upgrade x 100')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
                     .setCustomId("cancel")
                     .setLabel('Cancel Upgrade')
                     .setStyle(ButtonStyle.Danger),
@@ -275,6 +287,114 @@ module.exports = {
         }
         const newWallet = wallet - cost
         const newBank = bankLevel + 10
+        upgradeBankEmbed
+            .setColor(CampColour)
+            .setThumbnail(playerThumbnail)
+            .setTimestamp()
+            .setAuthor({ name: interaction.member.displayName, iconURL: interaction.member.displayAvatarURL({ dynamic: true }) })
+            .setDescription(`**${interaction.member}, War-Chest Upgrade Successful**`)
+            .addFields(
+                { name: `War-Coins:`, value: `$${newWallet.toLocaleString()}`, inline: true },
+                { name: `War-Chest:`, value: `$${bank.toLocaleString()}`, inline: true },
+                { name: `New Level:`, value: `${newBank}`, inline: true },
+            )
+            .setFooter({ text: `${guildName} - ${interaction.customId}`, iconURL: `${guildIcon}` });
+        const bankUpgrade = await sql.Execute(`UPDATE levels SET war_coins = ${newWallet}, chest_level = '${newBank}' WHERE discord_id = '${interaction.member.id}'`)
+        console.log(`Bank: ${bankUpgrade.info}`)
+        return interaction.update({ embeds: [upgradeBankEmbed], components: [upgradeButtons], files: [playerImage] })
+    },
+    buyBank100: async function (interaction) {
+        const Level = await sql.Execute(`SELECT * FROM levels WHERE discord_id = '${interaction.member.id}'`)
+        const warchest = `http://battle-bot.com/img/war-chest.jpg`
+        const image = Level[0].unit_image || 'GeneralDeath.png'
+		const playerImage = new AttachmentBuilder(`./img/${image}`)
+        const playerThumbnail = interaction.member.displayAvatarURL({ dynamic: true })
+
+        let CampColour = Colours.Black
+        if (Level[0].unit_camp === 'Vanguard') {
+            CampColour = Colours.VanguardBoost
+        }
+        if (Level[0].unit_camp === 'Liberty') {
+            CampColour = Colours.LibertyBoost
+        }
+        if (Level[0].unit_camp === 'MartyrsW') {
+            CampColour = Colours.MartyrsWBoost
+        }
+        const upgradeBankEmbed = new EmbedBuilder();
+        const upgradeButtons = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId("bank")
+                    .setLabel('War-Chest')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId("base")
+                    .setLabel('War-Base')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId("officer")
+                    .setLabel('Officer')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("troop")
+                    .setLabel('Unit')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("profile")
+                    .setLabel('Profile')
+                    .setStyle(ButtonStyle.Secondary),
+            )
+        const upgradeBankButtons = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId("buybank")
+                    .setLabel('Confirm Upgrade')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("buybank10")
+                    .setLabel('Upgrade x 10')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("buybank100")
+                    .setLabel('Upgrade x 100')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("cancel")
+                    .setLabel('Cancel Upgrade')
+                    .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
+                .setCustomId("profile")
+                .setLabel('Profile')
+                .setStyle(ButtonStyle.Secondary),
+            )
+        const guildIcon = interaction.member.guild.iconURL();
+        const guildName = interaction.member.guild.name
+        const wallet = Level[0].war_coins
+        const bank = Level[0].war_chest
+        const baseLevel = Level[0].base_level
+        const bankLevel = Level[0].chest_level
+        const cost = (bankLevel + 100) * 100000
+        if (cost > wallet) {
+            console.log(`No Money`),
+                difference = cost - wallet
+            upgradeBankEmbed
+                .setColor(CampColour)
+                .setThumbnail(playerThumbnail)
+                .setTimestamp()
+                .setAuthor({ name: interaction.member.displayName, iconURL: interaction.member.displayAvatarURL({ dynamic: true }) })
+                .setDescription(`${interaction.member}, You do not have enough **War-Coins** for this upgrade.\nYou are **$${difference.toLocaleString()} War-Coins short**!\nTry withdrawing from your **War-Chest**!`)
+                .addFields(
+                    { name: `War-Coins:`, value: `$${wallet.toLocaleString()}`, inline: true },
+                    { name: `War-Chest:`, value: `$${bank.toLocaleString()}`, inline: true },
+                    { name: `Current Level:`, value: `${bankLevel}`, inline: true },
+                    { name: `Upgrade Cost:`, value: `$${cost.toLocaleString()}`, inline: true },
+                )
+                .setFooter({ text: `${guildName} - ${interaction.customId}`, iconURL: `${guildIcon}` });
+
+            return interaction.update({ embeds: [upgradeBankEmbed], components: [upgradeBankButtons], files: [playerImage] })
+        }
+        const newWallet = wallet - cost
+        const newBank = bankLevel + 100
         upgradeBankEmbed
             .setColor(CampColour)
             .setThumbnail(playerThumbnail)
@@ -446,6 +566,10 @@ module.exports = {
                     .setLabel('Upgrade x 10')
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
+                    .setCustomId("buybase100")
+                    .setLabel('Upgrade x 100')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
                     .setCustomId("cancel")
                     .setLabel('Cancel Upgrade')
                     .setStyle(ButtonStyle.Danger),
@@ -460,7 +584,7 @@ module.exports = {
         const bank = Level[0].war_chest
         const baseLevel = Level[0].base_level
         const bankLevel = Level[0].chest_level
-        const cost = (baseLevel + 1) * 250000
+        const cost = (baseLevel + 10) * 250000
         if (cost > wallet) {
             console.log(`No Money`),
                 difference = cost - wallet
@@ -497,7 +621,113 @@ module.exports = {
         return interaction.update({ embeds: [upgradeBaseEmbed], components: [upgradeButtons], files: [playerImage] })
 
     },
+    buyBase100: async function (interaction) {
+        const Level = await sql.Execute(`SELECT * FROM levels WHERE discord_id = '${interaction.member.id}'`)
+        const warbase = `http://battle-bot.com/img/war-base.jpg`
+        const image = Level[0].unit_image || 'GeneralDeath.png'
+		const playerImage = new AttachmentBuilder(`./img/${image}`)
+        const playerThumbnail = interaction.member.displayAvatarURL({ dynamic: true })
 
+        let CampColour = Colours.Black
+        if (Level[0].unit_camp === 'Vanguard') {
+            CampColour = Colours.VanguardBoost
+        }
+        if (Level[0].unit_camp === 'Liberty') {
+            CampColour = Colours.LibertyBoost
+        }
+        if (Level[0].unit_camp === 'MartyrsW') {
+            CampColour = Colours.MartyrsWBoost
+        }
+        const upgradeBaseEmbed = new EmbedBuilder();
+        const upgradeButtons = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId("bank")
+                    .setLabel('War-Chest')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId("base")
+                    .setLabel('War-Base')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId("officer")
+                    .setLabel('Officer')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("troop")
+                    .setLabel('Unit')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("profile")
+                    .setLabel('Profile')
+                    .setStyle(ButtonStyle.Secondary),
+            )
+        const upgradeBaseButtons = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId("buybase")
+                    .setLabel('Confirm Upgrade')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("buybase10")
+                    .setLabel('Upgrade x 10')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("buybase100")
+                    .setLabel('Upgrade x 100')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("cancel")
+                    .setLabel('Cancel Upgrade')
+                    .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
+                .setCustomId("profile")
+                .setLabel('Profile')
+                .setStyle(ButtonStyle.Secondary),
+            )
+        const guildIcon = interaction.member.guild.iconURL();
+        const guildName = interaction.member.guild.name
+        const wallet = Level[0].war_coins
+        const bank = Level[0].war_chest
+        const baseLevel = Level[0].base_level
+        const bankLevel = Level[0].chest_level
+        const cost = (baseLevel + 100) * 250000
+        if (cost > wallet) {
+            console.log(`No Money`),
+                difference = cost - wallet
+            upgradeBaseEmbed
+                .setColor(CampColour)
+                .setThumbnail(playerThumbnail)
+                .setTimestamp()
+                .setAuthor({ name: interaction.member.displayName, iconURL: interaction.member.displayAvatarURL({ dynamic: true }) })
+                .setDescription(`${interaction.member}, You do not have enough **War-Coins** for this upgrade.\nYou are **$${difference.toLocaleString()} War-Coins short**!\nTry withdrawing from your **War-Chest**!`)
+                .addFields(
+                    { name: `War-Coins:`, value: `$${wallet.toLocaleString()}`, inline: true },
+                    { name: `War-Chest:`, value: `$${bank.toLocaleString()}`, inline: true },
+                    { name: `Current Level:`, value: `${baseLevel}`, inline: true },
+                    { name: `Upgrade Cost:`, value: `$${cost.toLocaleString()}`, inline: true },
+                )
+                .setFooter({ text: `${guildName} - ${interaction.customId}`, iconURL: `${guildIcon}` });
+            return interaction.update({ embeds: [upgradeBaseEmbed], components: [upgradeBaseButtons], files: [playerImage] })
+        }
+        const newWallet = wallet - cost
+        const newBase = baseLevel + 100
+        upgradeBaseEmbed
+            .setColor(CampColour)
+            .setThumbnail(playerThumbnail)
+            .setTimestamp()
+            .setDescription(`**${interaction.member}, Base Upgrade Successful**`)
+            .addFields(
+                { name: `War-Coins:`, value: `$${newWallet.toLocaleString()}`, inline: true },
+                { name: `War-Chest:`, value: `$${bank.toLocaleString()}`, inline: true },
+                { name: `New Level:`, value: `${newBase}`, inline: true },
+            )
+            .setFooter({ text: `${guildName} - ${interaction.customId}`, iconURL: `${guildIcon}` });
+        const baseUpgrade = await sql.Execute(`UPDATE levels SET war_coins = ${newWallet}, base_level = '${newBase}' WHERE discord_id = '${interaction.member.id}'`)
+        console.log(`Base ${baseUpgrade.info}`)
+        return interaction.update({ embeds: [upgradeBaseEmbed], components: [upgradeButtons], files: [playerImage] })
+
+    },
     buyOfficer: async function (interaction) {
         const GOT = `http://battle-bot.com/img/GeneralDeath.png`
         const Level = await sql.Execute(`SELECT * FROM levels WHERE discord_id = '${interaction.member.id}'`)
@@ -668,6 +898,10 @@ module.exports = {
                     .setLabel('Upgrade x 10')
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
+                    .setCustomId("buyofficer100")
+                    .setLabel('Upgrade x 100')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
                     .setCustomId("cancel")
                     .setLabel('Cancel Upgrade')
                     .setStyle(ButtonStyle.Danger),
@@ -835,6 +1069,10 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId("buybank10")
                     .setLabel('Upgrade x 10')
+                    .setStyle(ButtonStyle.Success),
+                new ButtonBuilder()
+                    .setCustomId("buybank100")
+                    .setLabel('Upgrade x 100')
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
                     .setCustomId("cancel")
