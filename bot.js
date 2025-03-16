@@ -10,9 +10,9 @@ const client = new Client({
 		PresenceManager: 0,
         UserManager: 200,
         ReactionUserManager: 0,
-        GuildInviteManager: 0,
+        GuildInviteManager: 100,
         GuildBanManager: 0,
-        GuildEmojiManager: 100,
+        GuildEmojiManager: 50,
         GuildMemberManager: {
             maxSize: 500,
             keepOverLimit: member => member.id === client.user.id,
@@ -22,7 +22,7 @@ const client = new Client({
         BaseGuildEmojiManager: 0,
         GuildStickerManager: 0,
         StageInstanceManager: 0,
-        InviteManager: 0,
+        InviteManager: 50,
 		// Add more class names here
 
         sweepers: {
