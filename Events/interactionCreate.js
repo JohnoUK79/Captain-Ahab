@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 const ms = require('ms-prettify').default
 const { battleBotHelp, buyBank, buyBank10, buyBank100, buyBase, buyBase10, buyBase100, chestUpgrade, baseUpgrade, cancel, buyOfficer, buyOfficer10, buyOfficer100, officerUpgrade, officerSelect, unitUpgrade, unitSelect, buyUnit, profile, newUnit, selectunit, selectofficer, selectgroundofficer, selectairofficer, skillupgrade, campaign, challenge, selectunitmenu, selectofficermenu, newOfficer} = require('../functions/warpathFunctions');
 const { campaignMode } = require('../functions/campaignMode');
-
+const { top10, top20, top30, top40, top50 } = require('../functions/discordFunctions');
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
