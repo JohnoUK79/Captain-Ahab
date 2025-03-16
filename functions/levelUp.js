@@ -439,6 +439,6 @@ module.exports = {
 		}   
 		}
 		let result = await sql.Execute (`UPDATE levels SET points = '${newPoints}', level = '${level}', discord_username = '${message.member.displayName}', discord_avatar = '${message.author.displayAvatarURL()}', last_seen_server = '${guildName}' WHERE discord_id = '${message.author.id}'`)
-		console.log(result.info)
+		console.log(new Date(Date.now()).toLocaleString(), result.info);
 	},
 }

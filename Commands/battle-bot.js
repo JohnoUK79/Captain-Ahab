@@ -64,7 +64,6 @@ module.exports = {
 		const guildIcon = interaction.member.guild.iconURL();
 		const guildName = interaction.member.guild.name
 		let Economy = await sql.Execute(`SELECT * FROM levels WHERE discord_id = ${interaction.member.id}`);
-		console.log(Economy)
 		if (Economy[0].newplayer === 0) {
 			const bank = Economy[0].war_coins;
 			console.log(`New Player Registered`);

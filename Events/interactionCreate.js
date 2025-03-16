@@ -10,7 +10,7 @@ module.exports = {
     async execute(interaction) {
 		guildIcon = interaction.member.guild.iconURL();
 		guildName = interaction.guild.name
-		console.log(`${setDate} - ${interaction.member.displayName} in #${interaction.channel.name} in ${guildName} triggered the ${interaction.commandName} command or ${interaction.customId} interaction.`);
+		console.log(`${new Date(Date.now()).toLocaleString()} - ${interaction.member.displayName} in #${interaction.channel.name} in ${guildName} triggered the ${interaction.commandName} command or ${interaction.customId} interaction.`);
 		// WarPath Functions
 		if (interaction.customId === 'bank') {
             try {
