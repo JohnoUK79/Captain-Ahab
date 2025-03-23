@@ -305,7 +305,7 @@ if (Battles[interaction.id].Defender.BattleHealth < 0) {
     const duration = endTime - startTime
     const battleLength = ms(duration)
 
-    commandCooldowns.set(`${interaction.member.id}_${interaction.customId}`, Date.now() + 60 * 60 * 1000 * 12)
+    commandCooldowns.set(`${interaction.member.id}_${interaction.customId}`, Date.now() + 60 * 60 * 1000 * 6)
 
     embed 
         .setColor(Battles[interaction.id].Attacker.Color)
