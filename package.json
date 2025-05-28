@@ -9,12 +9,14 @@
   "author": "John O'Brien",
   "license": "ISC",
   "dependencies": {
+    "chromedriver": "^137.0.0",
     "discord-rpc": "^4.0.1",
     "discord.js": "^14.15.3",
     "ms-prettify": "^1.5.0",
     "mysql2": "^3.10.0",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.13",
-    "openai": "^4.55.7"
+    "openai": "^4.55.7",
+    "selenium-webdriver": "^4.33.0"
   }
 }

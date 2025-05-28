@@ -40,6 +40,7 @@ const client = new Client({
       },
       intents: [
         GatewayIntentBits.GuildEmojisAndStickers, // for manage emojis and stickers
+        GatewayIntentBits.MessageContent, // for reading message content
         GatewayIntentBits.Guilds, // for guild related things
         GatewayIntentBits.GuildMembers, // for guild members related things
         GatewayIntentBits.GuildMessages, // for guild messages things
