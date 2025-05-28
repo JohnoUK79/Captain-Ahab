@@ -1,8 +1,6 @@
 
 module.exports = {
     name: 'guildCreate',
-    once: true,
-
     async execute(guild) {
         //console.log('Guild Create', guild)
         console.log("BOT Joined Server")

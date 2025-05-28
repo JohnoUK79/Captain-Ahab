@@ -5,22 +5,22 @@ module.exports = {
     const options = [
         {
             type: ActivityType.Watching,
-            text: `over ${myMembers.toLocaleString()} gang members, as they sail the Seven Seas!`,
+            text: `over ${myMembers.toLocaleString()} alliance members, as they Battle for Supremecy!`,
             status: 'Online'
         },
         {
             type: ActivityType.Watching,
-            text: `over the Seven Seas with ${myMembers.toLocaleString()} Pirates!`,
+            text: `over the Battlefield with ${myMembers.toLocaleString()} Warriors!`,
             status: 'Online'
         },
         {
             type: ActivityType.Listening,
-            text: `${myMembers.toLocaleString()} Pirates in need with Captain Ahab`,
+            text: `${myMembers.toLocaleString()} Warriors in need with Battle-Bot`,
             status: 'Online'
         },
         {
             type: ActivityType.Competing,
-            text: `Battles with ${myMembers.toLocaleString()} Pirates across the Seven Seas!`,
+            text: `Battles with ${myMembers.toLocaleString()} Warriors in the Battle Zone!`,
             status: 'idle'
         }
     ]

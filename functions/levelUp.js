@@ -40,7 +40,7 @@ module.exports = {
 		.addFields(
 			{ name: `Name:`, value: `${message.member.displayName}` },
 			{ name: `XP:`, value: `${score}` },
-			{ name: `Please state you in game name & the gang you hail from to acces channels in ${guildName}.`, value: `Stay active in our servers for regular rewards!`, inline: true },
+			{ name: `Please state you in game name & the alliance you are from from to acces channels in ${guildName}.`, value: `Stay active in our servers for regular rewards!`, inline: true },
 			)
 		.setImage(guildIcon)
 		.setTimestamp()
