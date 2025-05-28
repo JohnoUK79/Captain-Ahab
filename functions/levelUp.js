@@ -7,7 +7,7 @@ module.exports = {
 		Settings = await sql.Execute(`select * from settings where guild_id = '${message.guild.id}';`); 
 		Levels = await sql.Execute(`select * from levels where discord_id = '${message.author.id}';`); 
 		var score = Math.floor(Math.random() * 150) * 3;
-		warChest = Levels[0].war_chest
+		warChest = Levels[0].war_chest || 0
 		officerLevel = Levels[0].officer_level || 1
 		const updatePlayer =  new ActionRowBuilder()
 				.addComponents(

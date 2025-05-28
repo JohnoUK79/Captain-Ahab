@@ -28,6 +28,7 @@ module.exports = {
 		//Set Guild Branding
 		guildIcon = message.member.guild.iconURL();
 		guildName = message.member.guild.name
+		console.log(guildIcon, guildName)
 		//Level Up
 		try {
 			levelUp(message)
