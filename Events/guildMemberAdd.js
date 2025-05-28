@@ -12,7 +12,7 @@ module.exports = {
         CHANNEL_ID = Data[0].level_up_channel_id || Data[0].system_channel        
         GUILD = member.guild.name
         playerDisplayName = member.displayName
-        let roleBattleBot = member.guild.roles.cache.find(role => role.name === "NewMember");
+        let roleBattleBot = member.guild.roles.cache.find(role => role.name === "Unverified Member");
             if (!roleBattleBot) {
                 console.log(`No Role Found`)
                 roleBattleBot = await member.guild.roles.create({ 
@@ -85,16 +85,23 @@ module.exports = {
                     );
         
 
-            await member.roles.add(roleBattleBot).catch((e) => console.log(e));
-            await member.guild.channels.cache.get(CHANNEL_ID).send(
-                {
-                    embeds: [newMemberEmbed]
-                }
-            );
-            await member.user.send(
-                {
-                    embeds: [welcomeEmbed]
-                }
-            );
-     }
-}
+        // Assign role
+        await member.roles.add(roleBattleBot).catch((e) => console.log(e));
+
+        // Public welcome message
+        await member.guild.channels.cache.get(CHANNEL_ID).send({
+        embeds: [newMemberEmbed]
+        });
+
+        // Attempt to DM user, catch failure gracefully
+        try {
+        await member.user.send({
+            embeds: [welcomeEmbed]
+        });
+        } catch (error) {
+        if (error.code === 50007) {
+            console.warn(`❗ Cannot send welcome DM to ${member.user.tag} — DMs are disabled.`);
+        } else {
+            console.error(`❌ Unexpected error sending DM to ${member.user.tag}:`, error);
+        }
+}}}
