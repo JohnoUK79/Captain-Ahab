@@ -21,8 +21,9 @@ module.exports = {
 		.setImage(guildIcon)
 		.setTimestamp()
 		.setFooter({ text: `${guildName}.`, iconURL: `${guildIcon}` });
+		var score = Math.floor(Math.random() * 150) * 3;
 
-			if (Levels.length === 0) {
+		if (Levels.length === 0) {
 			console.log("First Post")
 			playerImage = (message.member.displayAvatarURL({ dynamic: true }))
 			warcoins = 1500000
@@ -36,7 +37,6 @@ module.exports = {
 			});
 			return;			
 		}
-		var score = Math.floor(Math.random() * 150) * 3;
 		warChest = Levels[0].war_chest || 0
 		officerLevel = Levels[0].officer_level || 1
 		const updatePlayer =  new ActionRowBuilder()
