@@ -6,6 +6,8 @@ module.exports = {
         //Database Lookup
 		Settings = await sql.Execute(`select * from settings where guild_id = '${message.guild.id}';`); 
 		Levels = await sql.Execute(`select * from levels where discord_id = '${message.author.id}';`); 
+		var score = Math.floor(Math.random() * 150) * 3;
+
 		const newPlayer = new EmbedBuilder()
 		.setColor('#0099ff')
 		.setTitle(`Welcome to ${guildName}`)
@@ -21,7 +23,6 @@ module.exports = {
 		.setImage(guildIcon)
 		.setTimestamp()
 		.setFooter({ text: `${guildName}.`, iconURL: `${guildIcon}` });
-		var score = Math.floor(Math.random() * 150) * 3;
 
 		if (Levels.length === 0) {
 			console.log("First Post")
