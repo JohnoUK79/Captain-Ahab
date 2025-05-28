@@ -6,9 +6,39 @@ module.exports = {
         //Database Lookup
 		Settings = await sql.Execute(`select * from settings where guild_id = '${message.guild.id}';`); 
 		Levels = await sql.Execute(`select * from levels where discord_id = '${message.author.id}';`); 
+		const newPlayer = new EmbedBuilder()
+		.setColor('#0099ff')
+		.setTitle(`Welcome to ${guildName}`)
+		.setURL('http://www.phfamily.co.uk')
+		.setThumbnail(message.member.displayAvatarURL())
+		.setAuthor({ name: message.member.displayName, iconURL: message.member.displayAvatarURL({ dynamic: true })})
+		.setDescription(`Glad you made it, **${message.member}!**`)
+		.addFields(
+			{ name: `Name:`, value: `${message.member.displayName}` },
+			{ name: `XP:`, value: `${score}` },
+			{ name: `Please state you in game name & the alliance you are from from to acces channels in ${guildName}.`, value: `Stay active in our servers for regular rewards!`, inline: true },
+			)
+		.setImage(guildIcon)
+		.setTimestamp()
+		.setFooter({ text: `${guildName}.`, iconURL: `${guildIcon}` });
+
+			if (Levels.length === 0) {
+			console.log("First Post")
+			playerImage = (message.member.displayAvatarURL({ dynamic: true }))
+			warcoins = 1500000
+			warchest = 0
+			level = 0
+			var score = Math.floor(Math.random() * 150) * 3;
+			let result = await sql.Execute(`INSERT INTO levels (discord_id, points, level, discord_username, last_seen_server) VALUES ('${message.author.id}', '${score}', '${level}', '${message.member.displayName}', '${guildName}');`)
+			await message.reply({
+				content: `Welcome to ${guildName} **${message.member.displayName}**.\nWe look forward to you becoming a valued member of our community!`,
+				embeds: [newPlayer]
+			});
+			return;			
+		}
 		var score = Math.floor(Math.random() * 150) * 3;
-		//warChest = Levels[0].war_chest || 0
-		//officerLevel = Levels[0].officer_level || 1
+		warChest = Levels[0].war_chest || 0
+		officerLevel = Levels[0].officer_level || 1
 		const updatePlayer =  new ActionRowBuilder()
 				.addComponents(
 		new ButtonBuilder()
@@ -28,38 +58,6 @@ module.exports = {
 			{ name: `Buy Now!:`, value: `https://www.buymeacoffee.com/johnouk79` },
 			)
 		.setFooter({ text: 'Buy Dekes A Beer!.', iconURL: 'http://battle-bot.com/img/GeneralDeath.png' });
-
-
-		const newPlayer = new EmbedBuilder()
-		.setColor('#0099ff')
-		.setTitle(`Welcome to ${guildName}`)
-		.setURL('http://www.phfamily.co.uk')
-		.setThumbnail(message.member.displayAvatarURL())
-		.setAuthor({ name: message.member.displayName, iconURL: message.member.displayAvatarURL({ dynamic: true })})
-		.setDescription(`Glad you made it, **${message.member}!**`)
-		.addFields(
-			{ name: `Name:`, value: `${message.member.displayName}` },
-			{ name: `XP:`, value: `${score}` },
-			{ name: `Please state you in game name & the alliance you are from from to acces channels in ${guildName}.`, value: `Stay active in our servers for regular rewards!`, inline: true },
-			)
-		.setImage(guildIcon)
-		.setTimestamp()
-		.setFooter({ text: `${guildName}.`, iconURL: `${guildIcon}` });
-
-		if (Levels.length === 0) {
-			console.log("First Post")
-			playerImage = (message.member.displayAvatarURL({ dynamic: true }))
-			warcoins = 1500000
-			warchest = 0
-			level = 0
-			var score = Math.floor(Math.random() * 150) * 3;
-			let result = await sql.Execute(`INSERT INTO levels (discord_id, points, level, discord_username, last_seen_server) VALUES ('${message.author.id}', '${score}', '${level}', '${message.member.displayName}', '${guildName}');`)
-			await message.reply({
-				content: `Welcome to ${guildName} **${message.member.displayName}**.\nWe look forward to you becoming a valued member of our community!`,
-				embeds: [newPlayer]
-			});
-			return;			
-		}
 
 		const roleRank10 = Settings[0].Rank_10
 		const roleRank20 = Settings[0].Rank_20
