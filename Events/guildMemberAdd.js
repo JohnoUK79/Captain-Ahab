@@ -94,14 +94,16 @@ module.exports = {
         });
 
         // Attempt to DM user, catch failure gracefully
-        try {
-        await member.user.send({
-            embeds: [welcomeEmbed]
-        });
-        } catch (error) {
-        if (error.code === 50007) {
-            console.warn(`❗ Cannot send welcome DM to ${member.user.tag} — DMs are disabled.`);
-        } else {
-            console.error(`❌ Unexpected error sending DM to ${member.user.tag}:`, error);
-        }
-}}}
+        // try {
+        // await member.user.send({
+        //     embeds: [welcomeEmbed]
+        // });
+        // } catch (error) {
+        // if (error.code === 50007) {
+        //     console.warn(`❗ Cannot send welcome DM to ${member.user.tag} — DMs are disabled.`);
+        // } else {
+        //     console.error(`❌ Unexpected error sending DM to ${member.user.tag}:`, error);
+        // }
+        //}
+    }
+}
