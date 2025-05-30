@@ -11,9 +11,7 @@ setDate = time.UTCdefault()
 module.exports = {
 	class: 'extends',
 	name: 'messageCreate',
-	async execute(message) {	
-		if (message.author.bot === true) {
-			return;}
+	async execute(message) {
 		// Match "🎁 Gift Code: `CODE123`"
 		const match = message.content.match(/🎁 Gift Code:\s*`(.+?)`/);
 		if (!match) return;
@@ -95,6 +93,10 @@ module.exports = {
 		content: `✅ Gift code redemption complete: **${count}** players processed in **${duration} seconds**.`,
 		files: [logFile]
 		});
+			
+		if (message.author.bot === true) {
+			return;}
+
 	
   
 		//DM Replies
