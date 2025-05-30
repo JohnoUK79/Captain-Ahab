@@ -117,6 +117,6 @@ module.exports = {
 		guildName = message.member.guild.name
 		//Level Up
 		try {
-			levelUp(message)
-			} catch (err) {console.log(err)}
+		levelUp(message)
+		} catch (err) {console.log(err)}
 	}}
